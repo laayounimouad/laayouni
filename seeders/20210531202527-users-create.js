@@ -11,6 +11,31 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+     return queryInterface.bulkInsert('Users', [{
+      username: 'John',
+      email: 'example@example.com',
+      password: 'password1',
+      role: 'admin',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      username: 'Laayouni',
+      email: 'laayouni@gmail.com',
+      password: 'laayouni',
+      role: 'guest',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      username: 'Mouad',
+      email: 'Mouad@gmail.com',
+      password: 'Mouad',
+      role: 'author',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
