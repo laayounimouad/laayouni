@@ -8,7 +8,12 @@ const usersRepo = require('../repositories/users');
 // });
 
 router.get('/',async function(req, res, next) {
-  res.json(await usersRepo.getAllUsers());
+  if(!req.query.page && !req.query.limit) {
+    res.json(await usersRepo.getAllUsers());
+  }
+  else{
+    res.json(await usersRepo.getUsers(parseInt(req.query.page), parseInt(req.query.limit)));
+  }
 });
 
 router.get('/:id',async function(req, res, next) {

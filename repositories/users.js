@@ -5,10 +5,40 @@ module.exports =  {
     getAllUsers() {
       return User.findAll()
     },
+    
+    // getAllUsers() {
+    //   return {
+    //     headers :  ["id","username","email","password","role"],
+    //     rows:User.findAll()
+    //   }
+    // },
+    
     // méthodes à implémenter
-    getUsers(offset = 0, limit = 10) {
-      
-     },
+    async getUsers(page = 1, limit = 10) {
+
+      const startIndex = (page - 1) * limit
+      const endIndex = page * limit
+
+      const results = {}
+     
+      if (startIndex > 0) {
+        results.previous = {
+          page: page - 1,
+          limit: limit
+        }
+      }
+
+      if (endIndex < await User.count()) {
+        results.next = {
+          page: page + 1,
+        limit: limit
+        }
+      }
+      results.results =await User.findAll({ offset: startIndex, limit: limit });
+      console.log(results.next);
+      console.log(results.previous);
+      return results;
+    },
     getAdmins() { },
     getAuthors() { },
     getGuests(){ }, 

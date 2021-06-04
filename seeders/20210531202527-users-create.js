@@ -1,5 +1,5 @@
 'use strict';
-
+var faker = require('faker');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -11,31 +11,18 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     return queryInterface.bulkInsert('Users', [{
-      username: 'John',
-      email: 'example@example.com',
-      password: 'password1',
-      role: 'admin',
+   var data = [];
+   for(var i=0;i<20;i++){
+     data.push({
+      username: faker.name.findName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      role: i%7 == 0 ? 'admin' :(i%2 == 0 ? 'host' : 'guest'),
       createdAt: new Date(),
       updatedAt: new Date()
-    },
-    {
-      username: 'Laayouni',
-      email: 'laayouni@gmail.com',
-      password: 'laayouni',
-      role: 'guest',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      username: 'Mouad',
-      email: 'Mouad@gmail.com',
-      password: 'Mouad',
-      role: 'author',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]
-    );
+     })
+   }
+     return queryInterface.bulkInsert('Users', data, {});
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -45,5 +32,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('Users', null, {});
   }
 };
