@@ -11,6 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   /*
    var data = [];
    for(var i=0;i<20;i++){
      data.push({
@@ -22,7 +23,8 @@ module.exports = {
       updatedAt: new Date()
      })
    }
-     return queryInterface.bulkInsert('Users', data, {});
+     await queryInterface.bulkInsert('Users', data, {});
+     */
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -32,6 +34,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('Users', null, {});
+    //  await queryInterface.bulkDelete('Users', null, {});
   }
 };
