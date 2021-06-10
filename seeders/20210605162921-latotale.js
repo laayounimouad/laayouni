@@ -12,20 +12,21 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     var user = []
-     var year = 2000
-     for(var i=0;i<20;i++){
-      var date = new Date()
-      date.setFullYear(year++)
-      user.push({
-        username: faker.name.findName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-        role: i%9 == 0 ? 'admin' :(i%2 == 0 ? 'author' : 'guest'),
-        createdAt: date,
-        updatedAt: date
-       })
-     }
+     
+    var user = []
+    var year = 2000
+    for(var i=0;i<20;i++){
+        var date = new Date()
+        date.setFullYear(year++)
+        user.push({
+          username: faker.name.findName(),
+          email: faker.internet.email(),
+          password: faker.internet.password(),
+          role: i%9 == 0 ? 'admin' :(i%2 == 0 ? 'author' : 'guest'),
+          createdAt: date,
+          updatedAt: date
+      })
+    }
       
   await queryInterface.bulkInsert('Users', user, {});
 
