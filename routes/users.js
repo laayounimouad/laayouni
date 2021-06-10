@@ -19,6 +19,10 @@ router.get('/',async function(req, res, next) {
 router.get('/:id',async function(req, res, next) {
   res.json(await usersRepo.getUser(req.params.id));
 });
+router.get('/:id/articles',async function(req, res, next) {
+  
+  res.json(await usersRepo.getArticlesByUser(req.params.id));
+});
 router.post('/',async function(req, res, next) {
   res.send(await usersRepo.addUser(req.body));
 });

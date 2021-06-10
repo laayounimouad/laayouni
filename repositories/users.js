@@ -1,4 +1,4 @@
-const {User}  = require('../models');
+const {User,Article}  = require('../models');
 
 Validator = require('validatorjs');
 module.exports =  {
@@ -42,6 +42,13 @@ module.exports =  {
     getAdmins() { },
     getAuthors() { },
     getGuests(){ }, 
+    getArticlesByUser(id){
+      return Article.findAll({
+        where: {
+          UserId: id
+        }
+      })
+    },
     getUser(id) {
       return  User.findByPk(id);
     },
