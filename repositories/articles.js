@@ -36,8 +36,6 @@ module.exports = {
           }
         }
         results.results =await Article.findAll({ offset: startIndex, limit: limit });
-        console.log(results.next);
-        console.log(results.previous);
         return results;
       },
 /**
@@ -57,7 +55,7 @@ module.exports = {
           })
       },
       getTagsByArticleId(id){
-          var data = Tag.findAll({
+        return Tag.findAll({
             include:  [
                 {
                     model:Article,
@@ -66,8 +64,17 @@ module.exports = {
                 }
             ]
           });
-        // var data1 = data.
-        return data
+      },
+      async associateArticleAndTag(articleId,tagId){
+        if(!articleId || !tagId) return "il faut avoir l'id d'article et du tag"
+        var article = await Article.findByPk(articleId)
+        if(!article) return "cet article n'existe pas"
+        var tag = await Tag.findByPk(tagId)
+        if(!tag) return "ce tag n'existe pas"
+
+        article.addTag(tag);
+        return "association reussi"
+
       },
 /**
  * 
@@ -137,7 +144,7 @@ module.exports = {
        * @returns 
        */
       async deleteArticle(article) {
-        if(!article.id){return "il faut un id pour supprimé l'utilisateur"}
+        if(!article.id){return "il faut un id pour supprimé l'article "}
         else{
         var temp = await Article.destroy({
           where:{

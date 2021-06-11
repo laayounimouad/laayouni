@@ -19,11 +19,12 @@ router.get('/:id/comments',async function(req, res, next) {
     res.json(await articlesRepo.getCommentsByArticleId(req.params.id));
 });
 router.get('/:id/tags',async function(req, res, next) {
-    var temp = await articlesRepo.getTagsByArticleId(req.params.id)
-    console.log(temp)
-    res.json(temp);
+    res.json(await articlesRepo.getTagsByArticleId(req.params.id));
 });
-
+// associate Article And Tag
+router.post('/:idArticle/tags/:idTag',async function(req, res, next) {
+    res.json(await articlesRepo.associateArticleAndTag(req.params.idArticle,req.params.idTag));
+});
 router.post('/',async function(req, res, next) {
     res.send(await articlesRepo.addArticle(req.body));
 });
