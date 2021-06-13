@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 const articlesRepo = require('../repositories/articles')
 const userRepo = require('../repositories/users')
-
+const auth = require('../middleware/auth')
 router.use(express.static('public'));
 
 router.get('/',async function(req, res, next){
@@ -23,12 +23,9 @@ router.get('/:id(\\d+)',async function(req, res, next) {
     var user = await userRepo.getUser(article.UserId)
     res.render('post', {article,user})
 });
-router.get('/new',async function(req, res, next) {
-    if(req.session.userId){
+router.get('/new',auth,async function(req, res, next) {
         var userId = req.session.userId
         res.render('create',{userId});
-    } 
-    else res.redirect('/auth/login')
 });
 
 router.get('/:id/comments',async function(req, res, next) {

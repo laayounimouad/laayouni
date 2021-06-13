@@ -9,7 +9,9 @@ var usersRouter = require('./routes/users');
 var articlesRouter = require('./routes/articles');
 var commentsRouter = require('./routes/comments');
 var tagsRouter = require('./routes/tags');
-var authRouter = require('./routes/auth')
+var authRouter = require('./routes/auth');
+
+const edge = require("edge.js");
 //var publicRouter = require('./routes/public');
 var app = express();
 
@@ -25,24 +27,19 @@ app.use(expressSession({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: {  }
+    cookie: { maxAge: 3600 }
 }));
 // app.use('/', indexRouter);
+app.use('*', (req, res, next) => {
+    edge.global('auth', req.session.userId)
+    next()
+});
 app.get('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
 app.use('/comments',commentsRouter);
 app.use('/tags',tagsRouter);
 app.use('/auth',authRouter);
-app.get('/about', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/about.html'));
-});
-app.get('/post', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/post.html'));
-});
-app.get('/contact', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/contact.html'));
-});
 
 //app.use('/public',publicRouter);
 console.log('started..');
