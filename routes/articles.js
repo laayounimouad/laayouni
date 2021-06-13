@@ -24,7 +24,11 @@ router.get('/:id(\\d+)',async function(req, res, next) {
     res.render('post', {article,user})
 });
 router.get('/new',async function(req, res, next) {
-    res.render('create');
+    if(req.session.userId){
+        var userId = req.session.userId
+        res.render('create',{userId});
+    } 
+    else res.redirect('/auth/login')
 });
 
 router.get('/:id/comments',async function(req, res, next) {
@@ -40,7 +44,7 @@ router.post('/:idArticle/tags/:idTag',async function(req, res, next) {
 router.post('/',async function(req, res, next) {
     // res.send(await articlesRepo.addArticle(req.body));
     // await articlesRepo.addArticle(req.body)
-    console.log( await articlesRepo.addArticle(req.body));
+     await articlesRepo.addArticle(req.body);
     res.redirect('/')
 });
 

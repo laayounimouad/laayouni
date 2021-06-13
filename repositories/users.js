@@ -35,8 +35,6 @@ module.exports =  {
         }
       }
       results.results =await User.findAll({ offset: startIndex, limit: limit });
-      console.log(results.next);
-      console.log(results.previous);
       return results;
     },
     getAdmins() { },
@@ -53,15 +51,14 @@ module.exports =  {
       return  User.findByPk(id);
     },
     getUserByEmail(email) { },
-    async addUser(user) {
-   
-      var userTemp, validation, validationRules;
 
+    async addUser(user) {
+      var userTemp, validation, validationRules;
       validationRules = {
         username: 'required|string',
         email: 'required|string|email',
         password :'required|string',
-        rule : ['required', {'in':["guest","admin","author"]}]
+        role : ['required', {'in':["guest","admin","author"]}]
        };
   
       // validation du requete
@@ -93,6 +90,22 @@ module.exports =  {
 
 
 
+    },
+    async autoriserLogin(user){
+      
+      if(!user.email || !user.password) return null
+      var userTemp = (await User.findOne({
+        where: {
+          email: user.email
+        }
+      }));
+      if (userTemp==null) {
+        
+       return null
+      } else {
+        if(userTemp.password == user.password) return userTemp
+        else return null
+      }
     },
     async updateUser(user) {
       

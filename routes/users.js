@@ -24,8 +24,19 @@ router.get('/:id/articles',async function(req, res, next) {
   res.json(await usersRepo.getArticlesByUser(req.params.id));
 });
 router.post('/',async function(req, res, next) {
-  res.send(await usersRepo.addUser(req.body));
+  var user = await usersRepo.addUser(req.body);
+  if(user != "Utilisateur nouvellement créé") res.redirect('/auth/register')
+  res.redirect('/')
 });
+router.post('/login',async function(req, res, next){
+  console.log(req.body)
+  var user = await usersRepo.autoriserLogin(req.body)
+  if(user){
+    req.session.userId = user.id
+    res.redirect('/')
+  } 
+  else res.redirect('/auth/login') 
+})
 router.put('/',async function(req, res, next) {
   res.send(await usersRepo.updateUser(req.body));
 });

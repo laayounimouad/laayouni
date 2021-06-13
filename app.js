@@ -1,10 +1,9 @@
 var express = require('express');
-const { config, engine } = require('express-edge');
-const fetch = require("node-fetch");
+const { engine } = require('express-edge');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const expressSession = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var articlesRouter = require('./routes/articles');
@@ -22,7 +21,12 @@ app.use(express.static( 'public'));
 
 app.use(engine);
 app.set('views', __dirname + '/views');
-
+app.use(expressSession({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {  }
+}));
 // app.use('/', indexRouter);
 app.get('/', indexRouter);
 app.use('/users', usersRouter);

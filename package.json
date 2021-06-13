@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-edge": "^2.0.2",
+    "express-session": "^1.17.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
     "morgan": "~1.9.1",

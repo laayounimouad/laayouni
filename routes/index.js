@@ -8,8 +8,7 @@ router.get('/',async function(req, res, next) {
    articles = temp.results
    // articles = await articlesRepo.getAllArticles()
    for(var i = 0; i<articles.length;i++){
-      articles[i].user=await userRepo.getUser(articles[i].UserId)
-      console.log(articles[i].user)
+      articles[i].user=await userRepo.getUser(articles[i].UserId) ;
    }
    res.render('index',{articles});
 });
