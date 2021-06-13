@@ -1,7 +1,10 @@
 var express = require('express')
 var router = express.Router()
 const articlesRepo = require('../repositories/articles')
+const userRepo = require('../repositories/users')
+
 router.use(express.static('public'));
+
 router.get('/',async function(req, res, next){
     var articles ;
     if(!req.query.page && !req.query.limit) {
@@ -17,7 +20,8 @@ router.get('/',async function(req, res, next){
 
 router.get('/:id(\\d+)',async function(req, res, next) {
     var article = await articlesRepo.getArticle(req.params.id);
-    res.render('post', {article})
+    var user = await userRepo.getUser(article.UserId)
+    res.render('post', {article,user})
 });
 router.get('/new',async function(req, res, next) {
     res.render('create');

@@ -27,6 +27,10 @@
                 {{ article.title }}
               </h2>
             </a>
+            <p class="post-meta">Posted by
+              <a href="#">{{ article.user.username }}</a>
+              on {{ article.createdAt.toDateString() }}
+            </p>
           </div>
           <hr>
         @endeach

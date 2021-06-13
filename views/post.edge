@@ -9,6 +9,10 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
               <h1>{{ article.title }}</h1>
+              <p class="post-meta">Posted by
+                <a href="#">{{ user.username }}</a>
+                on {{ article.createdAt.toDateString() }}
+              </p>
             </div>
           </div>
         </div>

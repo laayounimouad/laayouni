@@ -6,8 +6,9 @@ module.exports = {
      * 
      * @returns all articles
      */
-    getAllArticles(){
-        return Article.findAll()
+    async getAllArticles(){
+      var results = await Article.findAll()
+        return results;
     },
     /**
      * 
