@@ -74,7 +74,6 @@ module.exports = {
 
         article.addTag(tag);
         return "association reussi"
-
       },
 /**
  * 

@@ -7,13 +7,21 @@
     "migrate": "sequelize db:drop & sequelize db:create & node ./migrate.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-edge": "^2.0.2",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
     "morgan": "~1.9.1",
     "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
+    "popper.js": "^1.16.1",
     "sequelize": "^6.6.2",
+    "startbootstrap-clean-blog": "^6.0.3",
     "validatorjs": "^3.22.1"
   },
   "devDependencies": {

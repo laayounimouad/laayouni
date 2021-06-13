@@ -1,18 +1,26 @@
 var express = require('express')
 var router = express.Router()
 const articlesRepo = require('../repositories/articles')
-
+router.use(express.static('public'));
 router.get('/',async function(req, res, next){
+    var articles ;
     if(!req.query.page && !req.query.limit) {
-        res.json(await articlesRepo.getAllArticles());
+        articles =await articlesRepo.getAllArticles()
+        res.json(articles);
       }
-      else{
-        res.json(await articlesRepo.getArticles(parseInt(req.query.page), parseInt(req.query.limit)));
+    else{
+          articles =await articlesRepo.getArticles(parseInt(req.query.page), parseInt(req.query.limit));
+        res.json(articles);
       }
+    
 })
 
-router.get('/:id',async function(req, res, next) {
-    res.json(await articlesRepo.getArticle(req.params.id));
+router.get('/:id(\\d+)',async function(req, res, next) {
+    var article = await articlesRepo.getArticle(req.params.id);
+    res.render('post', {article})
+});
+router.get('/new',async function(req, res, next) {
+    res.render('create');
 });
 
 router.get('/:id/comments',async function(req, res, next) {
@@ -26,7 +34,10 @@ router.post('/:idArticle/tags/:idTag',async function(req, res, next) {
     res.json(await articlesRepo.associateArticleAndTag(req.params.idArticle,req.params.idTag));
 });
 router.post('/',async function(req, res, next) {
-    res.send(await articlesRepo.addArticle(req.body));
+    // res.send(await articlesRepo.addArticle(req.body));
+    // await articlesRepo.addArticle(req.body)
+    console.log( await articlesRepo.addArticle(req.body));
+    res.redirect('/')
 });
 
 router.put('/',async function(req, res, next) {
