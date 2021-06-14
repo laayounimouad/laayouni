@@ -23,7 +23,7 @@ router.get('/:id(\\d+)',async function(req, res, next) {
     var user = await userRepo.getUser(article.UserId)
     res.render('post', {article,user})
 });
-router.get('/new',auth,async function(req, res, next) {
+router.get('/new',auth.createAuth,async function(req, res, next) {
         var userId = req.session.userId
         res.render('create',{userId});
 });

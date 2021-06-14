@@ -1,6 +1,5 @@
 var express = require('express');
 const { engine } = require('express-edge');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const expressSession = require('express-session');
@@ -10,9 +9,9 @@ var articlesRouter = require('./routes/articles');
 var commentsRouter = require('./routes/comments');
 var tagsRouter = require('./routes/tags');
 var authRouter = require('./routes/auth');
-
+const auth = require('./middleware/auth')
 const edge = require("edge.js");
-//var publicRouter = require('./routes/public');
+
 var app = express();
 
 app.use(logger('dev'));
@@ -27,20 +26,23 @@ app.use(expressSession({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 3600 }
+    cookie: { maxAge: 3600000 } //60min
 }));
 // app.use('/', indexRouter);
 app.use('*', (req, res, next) => {
     edge.global('auth', req.session.userId)
     next()
-});
+},auth.roleAuth);
 app.get('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
 app.use('/comments',commentsRouter);
 app.use('/tags',tagsRouter);
 app.use('/auth',authRouter);
+app.use('/userListe',(req,res,next)=>{
+    
+    res.render('userListe');
+});
 
-//app.use('/public',publicRouter);
 console.log('started..');
 module.exports = app;

@@ -10,11 +10,8 @@ router.get('/login',redirectIfAuthenticated,async function(req,res){
     res.render('login')
 })
 router.get('/logout',(req, res) => {
-    console.log("yes")
     req.session.destroy(() => {
-        console.log("yes")
         res.redirect('/')
-        console.log("yes")
     })
 })
 
