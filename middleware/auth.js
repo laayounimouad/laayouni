@@ -18,5 +18,13 @@ module.exports ={
             edge.global('role',user.role)
         }
         next() 
+    },
+    async userListeAuth(req, res, next){
+        var user = await User.findByPk(req.session.userId)
+        if(user){
+            if(user.role='admin') next();
+            else return res.redirect('/auth/login')
+        }
+        else return res.redirect('/auth/login')
     }
 }

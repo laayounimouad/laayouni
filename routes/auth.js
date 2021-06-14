@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const logoutController = require('../controllers/logout')
 const redirectIfAuthenticated = require('../middleware/redirectIfAuthenticated');
 router.use(express.static('public'));
 router.get('/register',redirectIfAuthenticated,async function(req,res){

@@ -30,9 +30,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0" style="float: right;">
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Home</a></li>
+                @if(role != 'guest')
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="/articles/new">New Post</a>
                 </li>
+                @endif
                 @if(!auth)
                    <li class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4" href="/auth/login">Login</a>

@@ -116,7 +116,7 @@ module.exports =  {
           username: 'required|string',
           email: 'required|string|email',
           password :'required|string',
-          rule : ['required', {'in':["guest","admin","author"]}]
+          role : ['required', {'in':["guest","admin","author"]}]
          };
         validation = new Validator(user, validationRules);
         if (validation.fails()) {

@@ -9,6 +9,7 @@ var articlesRouter = require('./routes/articles');
 var commentsRouter = require('./routes/comments');
 var tagsRouter = require('./routes/tags');
 var authRouter = require('./routes/auth');
+var userListeRouter = require('./routes/userListe');
 const auth = require('./middleware/auth')
 const edge = require("edge.js");
 
@@ -39,10 +40,7 @@ app.use('/articles', articlesRouter);
 app.use('/comments',commentsRouter);
 app.use('/tags',tagsRouter);
 app.use('/auth',authRouter);
-app.use('/userListe',(req,res,next)=>{
-    
-    res.render('userListe');
-});
+app.use('/userListe',userListeRouter);
 
 console.log('started..');
 module.exports = app;
