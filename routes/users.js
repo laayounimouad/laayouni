@@ -29,7 +29,6 @@ router.post('/',async function(req, res, next) {
   res.redirect('/')
 });
 router.post('/login',async function(req, res, next){
-  console.log(req.body)
   var user = await usersRepo.autoriserLogin(req.body)
   if(user){
     req.session.userId = user.id

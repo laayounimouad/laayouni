@@ -13,20 +13,20 @@
 
         if(response.next){
             document.getElementById('next').setAttribute("onclick", "nextPage()");
-            document.getElementById('next').removeAttribute("class");
+            document.getElementById('next').classList.remove("disabled");
         }
         else{
             document.getElementById('next').removeAttribute("onclick");
-            document.getElementById('next').setAttribute("class", "disabled");
+            document.getElementById('next').classList.add("disabled");
         }
 
         if(response.previous){
             document.getElementById('previous').setAttribute("onclick", "previousPage()");
-            document.getElementById('previous').removeAttribute("class");
+            document.getElementById('previous').classList.remove("disabled");
         }
         else{
             document.getElementById('previous').removeAttribute("onclick");
-            document.getElementById('previous').setAttribute("class", "disabled");
+            document.getElementById('previous').classList.add("disabled");
         }
 
         table.innerHTML = `

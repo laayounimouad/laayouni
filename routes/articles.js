@@ -14,6 +14,7 @@ router.get('/',async function(req, res, next){
       }
     else{
           articles =await articlesRepo.getArticles(parseInt(req.query.page), parseInt(req.query.limit));
+        //   console.log(articles);
         res.json(articles);
       }
     

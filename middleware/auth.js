@@ -14,7 +14,6 @@ module.exports ={
         var user = await User.findByPk(req.session.userId)
         
         if(user){
-            console.log(user.role)
             edge.global('role',user.role)
         }
         next() 

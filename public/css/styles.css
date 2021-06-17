@@ -10728,7 +10728,7 @@ header.masthead {
   background-attachment: scroll;
 }
 header.masthead:before {
-  content: "";
+  /* content: ""; */
   position: absolute;
   top: 0;
   left: 0;
@@ -10740,7 +10740,7 @@ header.masthead:before {
 header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
-  color: #050505;
+  color: #ffffff;
 }
 header.masthead .page-heading,
 header.masthead .site-heading {

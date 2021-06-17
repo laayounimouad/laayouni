@@ -14,7 +14,7 @@
                 on {{ article.createdAt.toDateString() }} <br>
                 <B>Tags : </B>
               @each(tag in tags)
-              {{tag.name}}
+              &rarr;{{tag.name}}
                 @endeach
               </p>
             </div>

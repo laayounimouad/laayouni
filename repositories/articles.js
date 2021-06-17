@@ -36,7 +36,7 @@ module.exports = {
           limit: limit
           }
         }
-        results.results =await Article.findAll({ offset: startIndex, limit: limit });
+        results.results =await Article.findAll({order:[['createdAt','DESC']], offset: startIndex, limit: limit });
         return results;
       },
 /**
@@ -83,6 +83,7 @@ module.exports = {
  */
       async addArticle(article) {
    
+        console.log(article);
         var articleTemp, validation, validationRules;
   
         validationRules = {
@@ -97,12 +98,18 @@ module.exports = {
             return validation.errors.all();
         } else {
             articleTemp = (await Article.create(article));
-  
+            
             if (articleTemp) {
               if(article.tagsId){
-                for(var tagId of article.tagsId){
+                if(!Array.isArray(article.tagsId)){
+                  await this.associateArticleAndTag(articleTemp.id,article.tagsId)
+                }
+                else{
+                  for(var tagId of article.tagsId){
                     await this.associateArticleAndTag(articleTemp.id,tagId)
                 }
+              }
+                
               }
               return  "Article nouvellement créé";
             }
