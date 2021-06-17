@@ -99,6 +99,11 @@ module.exports = {
             articleTemp = (await Article.create(article));
   
             if (articleTemp) {
+              if(article.tagsId){
+                for(var tagId of article.tagsId){
+                    await this.associateArticleAndTag(articleTemp.id,tagId)
+                }
+              }
               return  "Article nouvellement créé";
             }
         }

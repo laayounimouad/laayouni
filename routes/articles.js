@@ -3,6 +3,7 @@ var router = express.Router()
 const articlesRepo = require('../repositories/articles')
 const userRepo = require('../repositories/users')
 const auth = require('../middleware/auth')
+const {Tag} = require('../models')
 router.use(express.static('public'));
 
 router.get('/',async function(req, res, next){
@@ -21,11 +22,13 @@ router.get('/',async function(req, res, next){
 router.get('/:id(\\d+)',async function(req, res, next) {
     var article = await articlesRepo.getArticle(req.params.id);
     var user = await userRepo.getUser(article.UserId)
-    res.render('post', {article,user})
+    tags=await articlesRepo.getTagsByArticleId(article.id)
+    res.render('post', {article,user,tags})
 });
 router.get('/new',auth.createAuth,async function(req, res, next) {
         var userId = req.session.userId
-        res.render('create',{userId});
+        var tags =await Tag.findAll();
+        res.render('create',{userId,tags});
 });
 
 router.get('/:id/comments',async function(req, res, next) {
@@ -39,8 +42,6 @@ router.post('/:idArticle/tags/:idTag',async function(req, res, next) {
     res.json(await articlesRepo.associateArticleAndTag(req.params.idArticle,req.params.idTag));
 });
 router.post('/',async function(req, res, next) {
-    // res.send(await articlesRepo.addArticle(req.body));
-    // await articlesRepo.addArticle(req.body)
      await articlesRepo.addArticle(req.body);
     res.redirect('/')
 });

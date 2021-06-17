@@ -2,6 +2,11 @@
 
 @section('content')
 <!-- Page Header -->
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+</head>
 <header class="masthead">
   <div class="overlay"></div>
   <div class="container">
@@ -31,7 +36,30 @@
             <textarea name="content" placeholder="Content ..." cols="30" rows="10" class="form-control"></textarea>
           </div>
         </div>
-        <input   name="UserId" value="{{userId}}" type="hidden">
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls">
+            <div id="list1" class="dropdown-check-list">
+              <label class="form-label">Tags</label>
+              <span class="anchor">Select Tags</span>
+              <ul class="items">
+                @each(tag in tags)
+                <li><input name="tagsId" value="{{tag.id}}" type="checkbox" />{{tag.name}}</li>
+                @endeach
+              </ul>
+            </div>
+            <script>
+              var checkList = document.getElementById('list1');
+              checkList.getElementsByClassName('anchor')[0].onclick = function(evt) 
+              {
+                if (checkList.classList.contains('visible'))
+                  checkList.classList.remove('visible');
+                else
+                  checkList.classList.add('visible');
+              }
+            </script>
+          </div>
+        </div>
+        <input name="UserId" value="{{userId}}" type="hidden">
         <div class="form-group my-4 text-center">
           <button class="btn btn-primary">Create Post</button>
         </div>

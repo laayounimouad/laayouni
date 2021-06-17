@@ -4,11 +4,12 @@ const userRepo = require('../repositories/users')
 /* GET home page. */
 router.get('/',async function(req, res, next) {
    var articles
-   var temp = await articlesRepo.getArticles(1,10)
-   articles = temp.results
-   // articles = await articlesRepo.getAllArticles()
+   // var temp = await articlesRepo.getArticles(1,10)
+   // articles = temp.results
+   articles = await articlesRepo.getAllArticles()
    for(var i = 0; i<articles.length;i++){
       articles[i].user=await userRepo.getUser(articles[i].UserId) ;
+      articles[i].tags=await articlesRepo.getTagsByArticleId(articles[i].id)
    }
    res.render('index',{articles});
 });
