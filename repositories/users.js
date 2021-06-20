@@ -77,10 +77,13 @@ module.exports =  {
     // user unique
     if (userTemp==null) {
       // ajout user
-      userTemp = ( User.create(user));
+      userTemp = await ( User.create(user));
 
       if (userTemp) {
-        return  "Utilisateur nouvellement créé";
+        return  {
+          message :"Utilisateur nouvellement créé",
+          user : userTemp
+        }
       }
     } else {
       // user avec le meme email
@@ -92,7 +95,6 @@ module.exports =  {
 
     },
     async autoriserLogin(user){
-      
       if(!user.email || !user.password) return null
       var userTemp = (await User.findOne({
         where: {
@@ -108,7 +110,6 @@ module.exports =  {
       }
     },
     async updateUser(user) {
-      
       var userTemp, validation, validationRules;
         // utilisateur existe :
         validationRules = {
