@@ -34,7 +34,7 @@ module.exports =  {
         limit: limit
         }
       }
-      results.results =await User.findAll({ offset: startIndex, limit: limit });
+      results.results =await User.findAll({order:[['createdAt','DESC']], offset: startIndex, limit: limit });
       return results;
     },
     getAdmins() { },

@@ -17,6 +17,19 @@ module.exports = {
     var year = 2000
     for(var i=0;i<20;i++){
         var date = new Date()
+        if(i==0){
+          user.push({
+            username : 'admin',
+            email:'admin@gmail.com',
+            password:'admin',
+            role:'admin',
+            createdAt:  date,
+            updatedAt:  date
+      
+          }) 
+        }
+        else{
+
         date.setFullYear(year++)
         user.push({
           username: faker.name.findName(),
@@ -26,8 +39,10 @@ module.exports = {
           createdAt: date,
           updatedAt: date
       })
+        }
     }
-      
+
+ 
   await queryInterface.bulkInsert('Users', user, {});
 
        // tags:
